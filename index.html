@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevDrops — Seus produtos</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #080c10;
+      --surface: #0d1117;
+      --border: #1e2d3d;
+      --accent: #00e5ff;
+      --accent2: #7b61ff;
+      --text: #cdd9e5;
+      --muted: #4a5568;
+      --glow: 0 0 30px rgba(0, 229, 255, 0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(0, 229, 255, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8, 12, 16, 0.82);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--text); }
+
+    .nav-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 180px 24px 100px;
+    }
+
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      max-width: 800px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      margin-top: 24px;
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 64px;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: 0.06em;
+    }
+
+    .section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 120px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      animation: fadeUp 0.6s ease both;
+      cursor: default;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.00s; }
+    .card:nth-child(2) { animation-delay: 0.08s; }
+    .card:nth-child(3) { animation-delay: 0.16s; }
+    .card:nth-child(4) { animation-delay: 0.24s; }
+    .card:nth-child(5) { animation-delay: 0.32s; }
+    .card:nth-child(6) { animation-delay: 0.40s; }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover {
+      border-color: rgba(0, 229, 255, 0.35);
+      transform: translateY(-4px);
+      box-shadow: var(--glow);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .card-badges {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .badge-free  { color: #4ade80; border-color: rgba(74,222,128,0.3);  background: rgba(74,222,128,0.05);  }
+    .badge-paid  { color: #f59e0b; border-color: rgba(245,158,11,0.3);  background: rgba(245,158,11,0.05);  }
+    .badge-new   { color: var(--accent);  border-color: rgba(0,229,255,0.3);   background: rgba(0,229,255,0.05);   }
+    .badge-beta  { color: var(--accent2); border-color: rgba(123,97,255,0.3);  background: rgba(123,97,255,0.05);  }
+
+    .card-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .card-meta {
+      display: flex;
+      gap: 16px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    .card-meta span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-version {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    .btn-download {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 229, 255, 0.1);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      color: var(--accent);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-download:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+    }
+
+    .btn-download svg { width: 13px; height: 13px; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    footer p {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 140px 20px 80px; }
+      .hero-stats { gap: 28px; }
+      .section { padding: 40px 16px 80px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#">Dev<span>Drops.dev</span></a>
+    <span class="nav-badge">v1.0.0</span>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-tag">// produtos desktop</div>
+    <h1>Ferramentas que<br /><em>aceleram</em> seu dia</h1>
+    <p>Uma coleção de apps feitos para otimizar seu trabalho.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <!-- CONTAGEM AUTOMÁTICA — atualizada pelo JS no fim da página -->
+        <div class="stat-num" id="hero-total">—</div>
+        <div class="stat-label">Produtos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Windows</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Possibilidades</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">Downloads</h2>
+      <div class="section-line"></div>
+      <!-- CONTAGEM AUTOMÁTICA — atualizada pelo JS no fim da página -->
+      <span class="section-count" id="section-total">— produtos</span>
+    </div>
+
+    <div class="grid" id="cards-grid">
+
+      <!--
+      ╔══════════════════════════════════════════════════════╗
+      ║  COMO ADICIONAR UM APP                               ║
+      ║                                                      ║
+      ║  1. Copie um bloco <div class="card"> abaixo        ║
+      ║  2. Troque os campos marcados com 👇                 ║
+      ║  3. O link de download vem do GitHub Releases:       ║
+      ║     Repositório → Releases → Crie uma release        ║
+      ║     → faça upload do .exe → copie o link direto      ║
+      ║                                                      ║
+      ║  LINK FORMAT:                                        ║
+      ║  https://github.com/alberth-ti95/apps/releases/     ║
+      ║         download/NOME-DA-TAG/NOME-DO-ARQUIVO.exe     ║
+      ╚══════════════════════════════════════════════════════╝
+      -->
+
+      <!-- ═══════════ CARD 1 ═══════════ -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon">⚡</div> <!-- 👈 TROQUE O EMOJI DO ÍCONE -->
+          <div class="card-badges">
+            <!-- 👈 BADGES DISPONÍVEIS — deixe só as que quiser:
+                 Gratuito : <span class="badge badge-free">Free</span>
+                 Pago     : <span class="badge badge-paid">Pago</span>
+                 Novo     : <span class="badge badge-new">New</span>
+                 Beta     : <span class="badge badge-beta">Beta</span>
+            -->
+            <span class="badge badge-free">Free</span>
+            <span class="badge badge-new">New</span>
+          </div>
+        </div>
+        <div class="card-name">Nome do App 01</div> <!-- 👈 NOME DO APP -->
+        <div class="card-desc">Descrição curta do app. O que ele faz e qual problema resolve em 1 ou 2 frases.</div> <!-- 👈 DESCRIÇÃO -->
+        <div class="card-meta">
+          <span>💻 Windows</span>
+          <span>⬇ 0.0 MB</span> <!-- 👈 TAMANHO DO .exe -->
+        </div>
+        <div class="card-footer">
+          <span class="card-version">v1.0.0</span> <!-- 👈 VERSÃO -->
+          <a class="btn-download" href="LINK_DO_RELEASE_AQUI.exe" download> <!-- 👈 LINK DO GITHUB RELEASE -->
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 2v8M5 7l3 3 3-3M2 13h12" />
+            </svg>
+            BAIXAR
+          </a>
+        </div>
+      </div>
+
+      <!-- ═══════════ CARD 2 ═══════════ -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon">🧩</div> <!-- 👈 TROQUE O EMOJI DO ÍCONE -->
+          <div class="card-badges">
+            <span class="badge badge-paid">Pago</span>
+          </div>
+        </div>
+        <div class="card-name">Nome do App 02</div> <!-- 👈 NOME DO APP -->
+        <div class="card-desc">Descrição curta do app. O que ele faz e qual problema resolve em 1 ou 2 frases.</div> <!-- 👈 DESCRIÇÃO -->
+        <div class="card-meta">
+          <span>💻 Windows</span>
+          <span>⬇ 0.0 MB</span> <!-- 👈 TAMANHO DO .exe -->
+        </div>
+        <div class="card-footer">
+          <span class="card-version">v1.0.0</span> <!-- 👈 VERSÃO -->
+          <a class="btn-download" href="LINK_DO_RELEASE_AQUI.exe" download> <!-- 👈 LINK DO GITHUB RELEASE -->
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 2v8M5 7l3 3 3-3M2 13h12" />
+            </svg>
+            BAIXAR
+          </a>
+        </div>
+      </div>
+
+      <!-- ═══════════ CARD 3 ═══════════ -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon">🛠️</div> <!-- 👈 TROQUE O EMOJI DO ÍCONE -->
+          <div class="card-badges">
+            <span class="badge badge-free">Free</span>
+            <span class="badge badge-beta">Beta</span>
+          </div>
+        </div>
+        <div class="card-name">Nome do App 03</div> <!-- 👈 NOME DO APP -->
+        <div class="card-desc">Descrição curta do app. O que ele faz e qual problema resolve em 1 ou 2 frases.</div> <!-- 👈 DESCRIÇÃO -->
+        <div class="card-meta">
+          <span>💻 Windows</span>
+          <span>⬇ 0.0 MB</span> <!-- 👈 TAMANHO DO .exe -->
+        </div>
+        <div class="card-footer">
+          <span class="card-version">v1.0.0</span> <!-- 👈 VERSÃO -->
+          <a class="btn-download" href="LINK_DO_RELEASE_AQUI.exe" download> <!-- 👈 LINK DO GITHUB RELEASE -->
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 2v8M5 7l3 3 3-3M2 13h12" />
+            </svg>
+            BAIXAR
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>Feito com 💙 &nbsp;·&nbsp; <a href="#">DevDrops</a> &nbsp;·&nbsp; Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+    // ─────────────────────────────────────────────
+    // CONTAGEM AUTOMÁTICA
+    // Conta os cards e atualiza o hero e o header.
+    // Não precisa mexer aqui nunca.
+    // ─────────────────────────────────────────────
+    const total = document.querySelectorAll('#cards-grid .card').length;
+    const pad   = String(total).padStart(2, '0');
+    document.getElementById('hero-total').textContent    = total;
+    document.getElementById('section-total').textContent = pad + ' produto' + (total !== 1 ? 's' : '');
+  </script>
+
+</body>
+</html>
