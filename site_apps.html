@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevDrops — Seus produtos web</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #080c10;
+      --surface: #0d1117;
+      --border: #1e2d3d;
+      --accent: #00e5ff;
+      --accent2: #7b61ff;
+      --text: #cdd9e5;
+      --muted: #4a5568;
+      --glow: 0 0 30px rgba(0, 229, 255, 0.18);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID BG ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── RADIAL GLOW ── */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(0, 229, 255, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8, 12, 16, 0.82);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--text);
+    }
+
+    .nav-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 180px 24px 100px;
+    }
+
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      max-width: 800px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      margin-top: 24px;
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 64px;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 120px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ── CARDS GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      animation: fadeUp 0.6s ease both;
+      cursor: default;
+    }
+
+    .card:nth-child(1) {
+      animation-delay: 0.0s;
+    }
+
+    .card:nth-child(2) {
+      animation-delay: 0.08s;
+    }
+
+    .card:nth-child(3) {
+      animation-delay: 0.16s;
+    }
+
+    .card:nth-child(4) {
+      animation-delay: 0.24s;
+    }
+
+    .card:nth-child(5) {
+      animation-delay: 0.32s;
+    }
+
+    .card:nth-child(6) {
+      animation-delay: 0.40s;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover {
+      border-color: rgba(0, 229, 255, 0.35);
+      transform: translateY(-4px);
+      box-shadow: var(--glow);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .card-badges {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .badge-free {
+      color: #4ade80;
+      border-color: rgba(74, 222, 128, 0.3);
+      background: rgba(74, 222, 128, 0.05);
+    }
+
+    .badge-paid {
+      color: #f59e0b;
+      border-color: rgba(245, 158, 11, 0.3);
+      background: rgba(245, 158, 11, 0.05);
+    }
+
+    .badge-new {
+      color: var(--accent);
+      border-color: rgba(0, 229, 255, 0.3);
+      background: rgba(0, 229, 255, 0.05);
+    }
+
+    .badge-beta {
+      color: var(--accent2);
+      border-color: rgba(123, 97, 255, 0.3);
+      background: rgba(123, 97, 255, 0.05);
+    }
+
+    .card-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .card-meta {
+      display: flex;
+      gap: 16px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    .card-meta span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-version {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    .btn-download {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 229, 255, 0.1);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      color: var(--accent);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-download:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+    }
+
+    .btn-download svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    footer p {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav {
+        padding: 16px 20px;
+      }
+
+      .hero {
+        padding: 140px 20px 80px;
+      }
+
+      .hero-stats {
+        gap: 28px;
+      }
+
+      .section {
+        padding: 40px 16px 80px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">Dev<span>Drops.dev</span></a>
+    <span class="nav-badge">v1.0.0</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">// produtos web</div>
+    <h1>Ferramentas que<br /><em>aceleram</em> seu dia</h1>
+    <p>Uma coleção de produtos feitas para otimizar seu trabalho.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Produtos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Web</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Possibilidades</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">Downloads</h2>
+      <div class="section-line"></div>
+      <span class="section-count">06 produtos</span>
+    </div>
+
+    <div class="grid">
+
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon">⚡</div>
+          <div class="card-badges">
+            <span class="badge badge-free">Free</span>
+            <span class="badge badge-new">New</span>
+          </div>
+        </div>
+        <div class="card-name">Produto 01</div>
+        <div class="card-desc">Descrição curta do seu produto. Explique o que ele faz e qual problema resolve em 1 ou 2
+          frases.</div>
+        <div class="card-meta">
+          <span>📁 HTML/CSS/JS</span>
+          <span>⬇ 1.2 MB</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-version">v1.0.0</span>
+          <a class="btn-download" href="#">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 2v8M5 7l3 3 3-3M2 13h12" />
+            </svg>
+            BAIXAR
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon">🧩</div>
+          <div class="card-badges">
+            <span class="badge badge-paid">Pago</span>
+          </div>
+        </div>
+        <div class="card-name">Produto 02</div>
+        <div class="card-desc">Descrição curta do seu produto. Explique o que ele faz e qual problema resolve em 1 ou 2
+          frases.</div>
+        <div class="card-meta">
+          <span>📁 React</span>
+          <span>⬇ 3.8 MB</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-version">v2.1.0</span>
+          <a class="btn-download" href="#">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 2v8M5 7l3 3 3-3M2 13h12" />
+            </svg>
+            BAIXAR
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon">🛠️</div>
+          <div class="card-badges">
+            <span class="badge badge-free">Free</span>
+            <span class="badge badge-beta">Beta</span>
+          </div>
+        </div>
+        <div class="card-name">Produto 03</div>
+        <div class="card-desc">Descrição curta do seu produto. Explique o que ele faz e qual problema resolve em 1 ou 2
+          frases.</div>
+        <div class="card-meta">
+          <span>📁 Vue.js</span>
+          <span>⬇ 900 KB</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-version">v0.9.2</span>
+          <a class="btn-download" href="#">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 2v8M5 7l3 3 3-3M2 13h12" />
+            </svg>
+            BAIXAR
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon">📦</div>
+          <div class="card-badges">
+            <span class="badge badge-paid">Pago</span>
+          </div>
+        </div>
+        <div class="card-name">Produto 04</div>
+        <div class="card-desc">Descrição curta do seu produto. Explique o que ele faz e qual problema resolve em 1 ou 2
+          frases.</div>
+        <div class="card-meta">
+          <span>📁 Next.js</span>
+          <span>⬇ 5.1 MB</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-version">v3.0.1</span>
+          <a class="btn-download" href="#">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 2v8M5 7l3 3 3-3M2 13h12" />
+            </svg>
+            BAIXAR
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon">🔮</div>
+          <div class="card-badges">
+            <span class="badge badge-free">Free</span>
+          </div>
+        </div>
+        <div class="card-name">Produto 05</div>
+        <div class="card-desc">Descrição curta do seu produto. Explique o que ele faz e qual problema resolve em 1 ou 2
+          frases.</div>
+        <div class="card-meta">
+          <span>📁 TypeScript</span>
+          <span>⬇ 420 KB</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-version">v1.4.0</span>
+          <a class="btn-download" href="#">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 2v8M5 7l3 3 3-3M2 13h12" />
+            </svg>
+            BAIXAR
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon">🚀</div>
+          <div class="card-badges">
+            <span class="badge badge-new">New</span>
+            <span class="badge badge-paid">Pago</span>
+          </div>
+        </div>
+        <div class="card-name">Produto 06</div>
+        <div class="card-desc">Descrição curta do seu produto. Explique o que ele faz e qual problema resolve em 1 ou 2
+          frases.</div>
+        <div class="card-meta">
+          <span>📁 Full Stack</span>
+          <span>⬇ 8.3 MB</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-version">v1.0.0</span>
+          <a class="btn-download" href="#">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 2v8M5 7l3 3 3-3M2 13h12" />
+            </svg>
+            BAIXAR
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Feito com 💙 &nbsp;·&nbsp; <a href="#">DevDrops</a> &nbsp;·&nbsp; Todos os direitos reservados</p>
+  </footer>
+
+</body>
+
+</html>
