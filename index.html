@@ -111,11 +111,14 @@
     }
 
     .hero h1 {
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-size: clamp(2rem, 4vw, 5rem);
       font-weight: 800;
-      line-height: 1.05;
+      line-height: 1.1;
       letter-spacing: -0.03em;
-      max-width: 800px;
+      max-width: 90vw;
+      width: 100%;
+      word-break: normal;
+      overflow-wrap: normal;
       animation: fadeUp 0.7s 0.1s ease both;
     }
 
@@ -129,9 +132,10 @@
 
     .hero p {
       margin-top: 24px;
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: var(--muted);
       max-width: 480px;
+      width: 100%;
       line-height: 1.7;
       animation: fadeUp 0.7s 0.2s ease both;
     }
@@ -141,6 +145,8 @@
       gap: 48px;
       margin-top: 64px;
       animation: fadeUp 0.7s 0.3s ease both;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .stat { text-align: center; }
@@ -172,6 +178,7 @@
       align-items: baseline;
       gap: 16px;
       margin-bottom: 48px;
+      flex-wrap: wrap;
     }
 
     .section-title {
@@ -184,6 +191,7 @@
       flex: 1;
       height: 1px;
       background: var(--border);
+      min-width: 20px;
     }
 
     .section-count {
@@ -194,7 +202,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 20px;
     }
 
@@ -299,6 +307,7 @@
       font-family: 'Space Mono', monospace;
       font-size: 0.68rem;
       color: var(--muted);
+      flex-wrap: wrap;
     }
 
     .card-meta span {
@@ -367,11 +376,65 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ✅ MOBILE */
     @media (max-width: 640px) {
-      nav { padding: 16px 20px; }
-      .hero { padding: 140px 20px 80px; }
-      .hero-stats { gap: 28px; }
-      .section { padding: 40px 16px 80px; }
+      nav {
+        padding: 16px 20px;
+      }
+
+      .hero {
+        padding: 110px 20px 60px;
+      }
+
+      .hero-tag {
+        font-size: 0.65rem;
+        padding: 5px 12px;
+      }
+
+      .hero h1 {
+        font-size: clamp(1.4rem, 7vw, 2rem);
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        max-width: 95vw;
+      }
+
+      .hero p {
+        font-size: 0.9rem;
+        margin-top: 16px;
+      }
+
+      .hero-stats {
+        gap: 20px;
+        margin-top: 36px;
+      }
+
+      .stat-num { font-size: 1.4rem; }
+      .stat-label { font-size: 0.7rem; }
+
+      .section {
+        padding: 32px 16px 80px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+
+    /* ✅ TABLET */
+    @media (min-width: 641px) and (max-width: 900px) {
+      nav { padding: 16px 28px; }
+
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 3.2rem);
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
@@ -389,7 +452,6 @@
     <p>Uma coleção de apps feitos para otimizar seu trabalho.</p>
     <div class="hero-stats">
       <div class="stat">
-        <!-- CONTAGEM AUTOMÁTICA — atualizada pelo JS no fim da página -->
         <div class="stat-num" id="hero-total">—</div>
         <div class="stat-label">Produtos</div>
       </div>
@@ -408,7 +470,6 @@
     <div class="section-header">
       <h2 class="section-title">Downloads</h2>
       <div class="section-line"></div>
-      <!-- CONTAGEM AUTOMÁTICA — atualizada pelo JS no fim da página -->
       <span class="section-count" id="section-total">— produtos</span>
     </div>
 
@@ -425,7 +486,7 @@
       ║     → faça upload do .exe → copie o link direto      ║
       ║                                                      ║
       ║  LINK FORMAT:                                        ║
-      ║  https://github.com/alberth-ti95/apps/releases/     ║
+      ║  https://github.com/SEU-USER/SEU-REPO/releases/     ║
       ║         download/NOME-DA-TAG/NOME-DO-ARQUIVO.exe     ║
       ╚══════════════════════════════════════════════════════╝
       -->
@@ -433,27 +494,22 @@
       <!-- ═══════════ CARD 1 ═══════════ -->
       <div class="card">
         <div class="card-top">
-          <div class="card-icon">⚡</div> <!-- 👈 TROQUE O EMOJI DO ÍCONE -->
+          <div class="card-icon">⚡</div> <!-- 👈 EMOJI DO ÍCONE -->
           <div class="card-badges">
-            <!-- 👈 BADGES DISPONÍVEIS — deixe só as que quiser:
-                 Gratuito : <span class="badge badge-free">Free</span>
-                 Pago     : <span class="badge badge-paid">Pago</span>
-                 Novo     : <span class="badge badge-new">New</span>
-                 Beta     : <span class="badge badge-beta">Beta</span>
-            -->
+            <!-- BADGES: badge-free | badge-paid | badge-new | badge-beta -->
             <span class="badge badge-free">Free</span>
             <span class="badge badge-new">New</span>
           </div>
         </div>
-        <div class="card-name">Nome do App 01</div> <!-- 👈 NOME DO APP -->
-        <div class="card-desc">Descrição curta do app. O que ele faz e qual problema resolve em 1 ou 2 frases.</div> <!-- 👈 DESCRIÇÃO -->
+        <div class="card-name">Nome do App 01</div> <!-- 👈 NOME -->
+        <div class="card-desc">Descrição curta do app. O que ele faz e qual problema resolve.</div> <!-- 👈 DESCRIÇÃO -->
         <div class="card-meta">
           <span>💻 Windows</span>
-          <span>⬇ 0.0 MB</span> <!-- 👈 TAMANHO DO .exe -->
+          <span>⬇ 0.0 MB</span> <!-- 👈 TAMANHO -->
         </div>
         <div class="card-footer">
           <span class="card-version">v1.0.0</span> <!-- 👈 VERSÃO -->
-          <a class="btn-download" href="LINK_DO_RELEASE_AQUI.exe" download> <!-- 👈 LINK DO GITHUB RELEASE -->
+          <a class="btn-download" href="LINK_DO_RELEASE.exe" download> <!-- 👈 LINK -->
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M8 2v8M5 7l3 3 3-3M2 13h12" />
             </svg>
@@ -465,20 +521,20 @@
       <!-- ═══════════ CARD 2 ═══════════ -->
       <div class="card">
         <div class="card-top">
-          <div class="card-icon">🧩</div> <!-- 👈 TROQUE O EMOJI DO ÍCONE -->
+          <div class="card-icon">🧩</div>
           <div class="card-badges">
             <span class="badge badge-paid">Pago</span>
           </div>
         </div>
-        <div class="card-name">Nome do App 02</div> <!-- 👈 NOME DO APP -->
-        <div class="card-desc">Descrição curta do app. O que ele faz e qual problema resolve em 1 ou 2 frases.</div> <!-- 👈 DESCRIÇÃO -->
+        <div class="card-name">Nome do App 02</div>
+        <div class="card-desc">Descrição curta do app. O que ele faz e qual problema resolve.</div>
         <div class="card-meta">
           <span>💻 Windows</span>
-          <span>⬇ 0.0 MB</span> <!-- 👈 TAMANHO DO .exe -->
+          <span>⬇ 0.0 MB</span>
         </div>
         <div class="card-footer">
-          <span class="card-version">v1.0.0</span> <!-- 👈 VERSÃO -->
-          <a class="btn-download" href="LINK_DO_RELEASE_AQUI.exe" download> <!-- 👈 LINK DO GITHUB RELEASE -->
+          <span class="card-version">v1.0.0</span>
+          <a class="btn-download" href="LINK_DO_RELEASE.exe" download>
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M8 2v8M5 7l3 3 3-3M2 13h12" />
             </svg>
@@ -490,21 +546,21 @@
       <!-- ═══════════ CARD 3 ═══════════ -->
       <div class="card">
         <div class="card-top">
-          <div class="card-icon">🛠️</div> <!-- 👈 TROQUE O EMOJI DO ÍCONE -->
+          <div class="card-icon">🛠️</div>
           <div class="card-badges">
             <span class="badge badge-free">Free</span>
             <span class="badge badge-beta">Beta</span>
           </div>
         </div>
-        <div class="card-name">Nome do App 03</div> <!-- 👈 NOME DO APP -->
-        <div class="card-desc">Descrição curta do app. O que ele faz e qual problema resolve em 1 ou 2 frases.</div> <!-- 👈 DESCRIÇÃO -->
+        <div class="card-name">Nome do App 03</div>
+        <div class="card-desc">Descrição curta do app. O que ele faz e qual problema resolve.</div>
         <div class="card-meta">
           <span>💻 Windows</span>
-          <span>⬇ 0.0 MB</span> <!-- 👈 TAMANHO DO .exe -->
+          <span>⬇ 0.0 MB</span>
         </div>
         <div class="card-footer">
-          <span class="card-version">v1.0.0</span> <!-- 👈 VERSÃO -->
-          <a class="btn-download" href="LINK_DO_RELEASE_AQUI.exe" download> <!-- 👈 LINK DO GITHUB RELEASE -->
+          <span class="card-version">v1.0.0</span>
+          <a class="btn-download" href="LINK_DO_RELEASE.exe" download>
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M8 2v8M5 7l3 3 3-3M2 13h12" />
             </svg>
@@ -517,15 +573,11 @@
   </div>
 
   <footer>
-    <p>Feito com 💙 &nbsp;·&nbsp; <a href="#">DevDrops</a> &nbsp;·&nbsp; Todos os direitos reservados</p>
+    <p>Feito com 💙 &nbsp;·&nbsp; <a href="#">AppDrops.net</a> &nbsp;·&nbsp; Todos os direitos reservados</p>
   </footer>
 
   <script>
-    // ─────────────────────────────────────────────
-    // CONTAGEM AUTOMÁTICA
-    // Conta os cards e atualiza o hero e o header.
-    // Não precisa mexer aqui nunca.
-    // ─────────────────────────────────────────────
+    // CONTAGEM AUTOMÁTICA — não precisa mexer aqui
     const total = document.querySelectorAll('#cards-grid .card').length;
     const pad   = String(total).padStart(2, '0');
     document.getElementById('hero-total').textContent    = total;
