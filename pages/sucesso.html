@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pagamento Confirmado — DevDrops</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>">
+  <title>Pagamento Confirmado — AppDrops</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap"
+    rel="stylesheet" />
   <style>
     :root {
       --bg: #080c10;
@@ -19,8 +24,17 @@
       --glow-success: 0 0 40px rgba(74, 222, 128, 0.2);
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background: var(--bg);
@@ -62,7 +76,9 @@
     /* NAV */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 100;
       display: flex;
       align-items: center;
@@ -80,7 +96,10 @@
       letter-spacing: 0.08em;
       text-decoration: none;
     }
-    .nav-logo span { color: var(--text); }
+
+    .nav-logo span {
+      color: var(--text);
+    }
 
     .nav-badge {
       font-family: 'Space Mono', monospace;
@@ -120,7 +139,9 @@
     .card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       height: 2px;
       background: linear-gradient(90deg, var(--success), var(--accent));
     }
@@ -270,27 +291,53 @@
       color: var(--muted);
     }
 
-    footer a { color: var(--accent); text-decoration: none; }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
 
     /* ANIMATIONS */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @keyframes popIn {
-      from { opacity: 0; transform: scale(0.5); }
-      to   { opacity: 1; transform: scale(1); }
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     /* RESPONSIVE */
     @media (max-width: 640px) {
-      nav { padding: 16px 20px; }
-      .card { padding: 40px 24px; }
-      h1 { font-size: 1.8rem; }
+      nav {
+        padding: 16px 20px;
+      }
+
+      .card {
+        padding: 40px 24px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <nav>
@@ -308,10 +355,10 @@
 
       <div class="tag">// pagamento confirmado</div>
 
-      <h1>Tudo <em>certo!</em><br/>Acesso liberado.</h1>
+      <h1>Tudo <em>certo!</em><br />Acesso liberado.</h1>
 
       <p class="desc">
-        Seu pagamento foi processado com sucesso.<br/>
+        Seu pagamento foi processado com sucesso.<br />
         Agora volte ao app e finalize a ativação.
       </p>
 
@@ -325,8 +372,9 @@
   </main>
 
   <footer>
-    <p>Feito com 💙 &nbsp;·&nbsp; <a href="#">DevDrops</a> &nbsp;·&nbsp; Todos os direitos reservados</p>
+    <p>Feito com 💙 &nbsp;·&nbsp; <a href="#">AppDrops</a> &nbsp;·&nbsp; Todos os direitos reservados</p>
   </footer>
 
 </body>
+
 </html>
