@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pagamento Cancelado — DevDrops</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap"
+    rel="stylesheet" />
   <style>
     :root {
       --bg: #080c10;
@@ -17,8 +20,17 @@
       --muted: #4a5568;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background: var(--bg);
@@ -60,7 +72,9 @@
     /* NAV */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 100;
       display: flex;
       align-items: center;
@@ -78,7 +92,10 @@
       letter-spacing: 0.08em;
       text-decoration: none;
     }
-    .nav-logo span { color: var(--text); }
+
+    .nav-logo span {
+      color: var(--text);
+    }
 
     .nav-badge {
       font-family: 'Space Mono', monospace;
@@ -118,7 +135,9 @@
     .card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       height: 2px;
       background: linear-gradient(90deg, var(--warn), var(--accent2));
     }
@@ -294,28 +313,57 @@
       color: var(--muted);
     }
 
-    footer a { color: var(--accent); text-decoration: none; }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
 
     /* ANIMATIONS */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @keyframes popIn {
-      from { opacity: 0; transform: scale(0.5); }
-      to   { opacity: 1; transform: scale(1); }
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     /* RESPONSIVE */
     @media (max-width: 640px) {
-      nav { padding: 16px 20px; }
-      .card { padding: 40px 24px; }
-      h1 { font-size: 1.8rem; }
-      .btns { flex-direction: column; }
+      nav {
+        padding: 16px 20px;
+      }
+
+      .card {
+        padding: 40px 24px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .btns {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <nav>
@@ -327,17 +375,17 @@
     <div class="card">
       <div class="icon-wrap">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
         </svg>
       </div>
 
       <div class="tag">// pagamento cancelado</div>
 
-      <h1>Ops! Pagamento<br/><em>não concluído.</em></h1>
+      <h1>Ops! Pagamento<br /><em>não concluído.</em></h1>
 
       <p class="desc">
-        Nenhum valor foi cobrado.<br/>
+        Nenhum valor foi cobrado.<br />
         Volte ao app e tente novamente quando quiser.
       </p>
 
@@ -351,7 +399,7 @@
       </div>
 
       <div class="btns">
-        <a class="btn-secondary" href="https://alberth-ti95.github.io/apps/index.html#">
+        <a class="btn-secondary" href="https://alberth-ti95.github.io/page-apps/pages/index.html">
           VER PRODUTOS
         </a>
       </div>
@@ -363,4 +411,5 @@
   </footer>
 
 </body>
+
 </html>
